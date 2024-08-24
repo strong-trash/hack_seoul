@@ -1,12 +1,12 @@
 from sqlalchemy.orm.session import Session
 
-from dto.cart import CartDto, CartUpdateDto
+from command.cart import AddCartCommand, DeleteCartCommand, UpdateCartCommand
 from exception import BadRequestException, NotFoundException
 from orm.cart import Cart
 from repository.cart import CartRepository
 
 
-async def list_shoppingcart(
+async def list_cart(
     user_id: int,
     session: Session
 ):
@@ -16,55 +16,52 @@ async def list_shoppingcart(
     return cart_products
 
 
-async def add_shoppingcart(
-    cart: CartDto,
+async def add_cart(
+    command: AddCartCommand,
     session: Session
 ):
     repository = CartRepository(session)
     obj = repository.get_by_user_id_and_product_id(
-        user_id=cart.user_id,
-        product_id=cart.product_id
+        user_id=command.user_id,
+        product_id=command.product_id
     )
     if obj is None:
         obj = Cart(
-            user_id=cart.user_id,
-            product_id=cart.product_id,
+            user_id=command.user_id,
+            product_id=command.product_id,
             count=1
         )
         repository.add(obj)
     else:
-        cart_update = CartUpdateDto(
-            user_id=obj.user_id,
-            product_id=obj.product_id,
+        update_command = UpdateCartCommand(
+            cart_id=obj.id,
             count=obj.count + 1
         )
-        await update_shoppingcart(
-            obj.id,
-            cart_update,
+        await update_cart(
+            update_command,
             session
         )
 
 
-async def update_shoppingcart(
-    cart_id: int,
-    cart: CartUpdateDto,
+async def update_cart(
+    command: UpdateCartCommand,
     session: Session
 ):
-    if cart.count <= 0:
+    if command.count <= 0:
         raise BadRequestException
     repository = CartRepository(session)
-    obj = repository.get_by_id(cart_id)
+    obj = repository.get_by_id(command.cart_id)
     if obj is None:
         raise NotFoundException
-    obj.count = cart.count
+    obj.count = command.count
 
 
-async def delete_shoppingcart(
-    cart_id: int,
+async def delete_cart(
+    command: DeleteCartCommand,
     session: Session,
 ):
     repository = CartRepository(session)
-    obj = repository.get_by_id(cart_id)
+    obj = repository.get_by_id(command.cart_id)
     if obj is None:
         raise NotFoundException
     repository.delete(obj)

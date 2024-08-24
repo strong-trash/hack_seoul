@@ -1,7 +1,8 @@
 from sqlalchemy.orm.session import Session
 
+from command.product import AddProductCommand
 from const import LikeStatus
-from dto.product import ProductDto, ProductResponseDto
+from dto.product import ProductResponseDto
 from orm.product import Product
 from repository.like import LikeRepository
 from repository.product import ProductRepository
@@ -45,14 +46,14 @@ async def list_product(
 
 
 async def add_product(
-    product: ProductDto,
+    command: AddProductCommand,
     session: Session
 ):
     repository = ProductRepository(session)
     obj = Product(
-        name=product.name,
-        image_path=product.image_path,
-        price=product.price,
-        summary=product.summary
+        name=command.name,
+        image_path=command.image_path,
+        price=command.price,
+        summary=command.summary
     )
     repository.add(obj)

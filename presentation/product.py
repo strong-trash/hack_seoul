@@ -3,8 +3,11 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm.session import Session
 
-from depends import get_session
-from dto.product import ProductDto, ProductResponseDto, ProductResponseModel
+from command.product import AddProductCommand
+from depends import get_messagebus, get_session
+from depends.product import add_product_command
+from dto.product import ProductResponseDto, ProductResponseModel
+from messagebus import MessageBus
 from service import product as product_service
 
 api = APIRouter()
@@ -37,10 +40,7 @@ async def list_product(
 
 @api.post("", status_code=status.HTTP_201_CREATED)
 async def add_product(
-    product: ProductDto,
-    session: Annotated[Session, Depends(get_session)]
-) -> ProductDto:
-    await product_service.add_product(
-        product, session
-    )
-    return product
+    command: Annotated[AddProductCommand, Depends(add_product_command)],
+    messagebus: Annotated[MessageBus, Depends(get_messagebus)]
+):
+    return await messagebus.handle(command)

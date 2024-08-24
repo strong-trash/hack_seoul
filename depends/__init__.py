@@ -1,8 +1,10 @@
 from typing import Annotated
 
 from fastapi import Depends, Request
+from sqlalchemy.orm.session import Session
 
 from db import Database
+from messagebus import MessageBus
 from settings import Settings
 
 
@@ -26,3 +28,9 @@ async def get_session(
     except Exception as e:
         session.rollback()
         raise e
+
+
+async def get_messagebus(
+    session: Annotated[Session, Depends(get_session)]
+):
+    return MessageBus(session)

@@ -4,7 +4,7 @@ from httpx import ASGITransport, AsyncClient
 
 
 @pytest.mark.asyncio
-async def test_list_shoppingcart_returns_200(
+async def test_list_cart_returns_200(
     test_fastapi_app, bootstrap, shopping_cart
 ):
     async with AsyncClient(
@@ -21,7 +21,7 @@ async def test_list_shoppingcart_returns_200(
 
 
 @pytest.mark.asyncio
-async def test_add_shoppingcart_returns_201(
+async def test_add_cart_returns_201(
     test_fastapi_app, bootstrap
 ):
     async with AsyncClient(
@@ -42,7 +42,7 @@ async def test_add_shoppingcart_returns_201(
 
 
 @pytest.mark.asyncio
-async def test_add_shoppingcart_returns_201_when_increment_count(
+async def test_add_cart_returns_201_when_increment_count(
     test_fastapi_app, bootstrap
 ):
     async with AsyncClient(
@@ -63,7 +63,7 @@ async def test_add_shoppingcart_returns_201_when_increment_count(
 
 
 @pytest.mark.asyncio
-async def test_update_shoppingcart_returns_202(
+async def test_update_cart_returns_202(
     test_fastapi_app, bootstrap
 ):
     async with AsyncClient(
@@ -83,7 +83,7 @@ async def test_update_shoppingcart_returns_202(
 
 
 @pytest.mark.asyncio
-async def test_update_shoppingcart_returns_400_when_invalid_count(
+async def test_update_cart_returns_400_when_invalid_count(
     test_fastapi_app, bootstrap
 ):
     async with AsyncClient(
@@ -103,7 +103,7 @@ async def test_update_shoppingcart_returns_400_when_invalid_count(
 
 
 @pytest.mark.asyncio
-async def test_update_shoppingcart_returns_404(
+async def test_update_cart_returns_404(
     test_fastapi_app, bootstrap
 ):
     async with AsyncClient(
@@ -123,7 +123,7 @@ async def test_update_shoppingcart_returns_404(
 
 
 @pytest.mark.asyncio
-async def test_delete_shoppingcart_returns_204(
+async def test_delete_cart_returns_204(
     test_fastapi_app, bootstrap
 ):
     async with AsyncClient(
@@ -137,7 +137,7 @@ async def test_delete_shoppingcart_returns_204(
 
 
 @pytest.mark.asyncio
-async def test_delete_shoppingcart_returns_404(
+async def test_delete_cart_returns_404(
     test_fastapi_app, bootstrap
 ):
     async with AsyncClient(
