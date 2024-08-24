@@ -8,27 +8,31 @@
 </head>
 <body>
     <div class="scene">
-        <div class="product-info-container">
-            <p class="product-name">제품 이름</p>
-            <p class="product-price">15,000원</p>
-        </div>
-        <div class="product-thumbnail-container">
-            <img src="https://cdn2.thecatapi.com/images/ada.jpg" alt="product thumbnail" />
-        </div>
-        <div class="product-review-container">
-            <p class="review-text">this is review hi my name is review this is review hi my name is review</p>
-        </div>
+        <!-- 제품 내용 -->
+            <div class="product-info-container">
+                <p class="product-name">제품 이름</p>
+                <p class="product-price">15,000원</p>
+            </div>
+            <div class="product-thumbnail-container">
+                <img src="https://cdn2.thecatapi.com/images/ada.jpg" alt="product thumbnail" />
+            </div>
+            <div class="product-review-container">
+                <p class="review-text">this is review hi my name is review this is review hi my name is review</p>
+            </div>
+
+        <!-- 좋아요 싫어요 버튼 -->
         <div class="controls-container">
             <div class="like-button action-button">
-                <span class="like-cnt">5</span>
                 <div class="like-icon icon">
-                    <img src="./icons/thumb_up.png" alt="like icon" />
-                    <span>Like</span>
+                    <img src="icons/thumb_up.png" alt="like icon" />
                 </div>
+                <span class="like-cnt">5</span>
             </div>
             <div class="dislike-button action-button">
-                <span>Dislike</span>
-                <img class="dislike-icon" src="./icons/thumb_down.png" alt="like icon" />
+                <div class="dislike-icon icon">
+                    <img src="icons/thumb_down.png" alt="dislike icon" />
+                </div>
+                <span class="dislike-cnt">5</span>
             </div>
         </div>
     </div>
