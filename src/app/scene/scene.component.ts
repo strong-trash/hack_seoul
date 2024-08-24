@@ -36,12 +36,15 @@ export class scene implements OnInit {
   ngOnInit(): void {}
   ngAfterViewInit() {
     this.api.getProduct(this.itemId, 1).then((res: any) => {
+      res.data.price = this.KRWon.format(res.data.price);
       this.slides.push(res.data);
       this.itemId = res.data.id;
       this.api.getProduct(this.itemId, 1).then((res: any) => {
+        res.data.price = this.KRWon.format(res.data.price);
         this.slides.push(res.data);
         this.itemId = res.data.id;
         this.api.getProduct(this.itemId, 1).then((res: any) => {
+          res.data.price = this.KRWon.format(res.data.price);
           this.slides.push(res.data);
           this.itemId = res.data.id;
           this.swiper = new Swiper('.swiper-container', {
@@ -98,6 +101,10 @@ export class scene implements OnInit {
                   if (this.swiper) {
                     const id = this.slides[this.swiper.activeIndex].id;
                     this.api.addCart(1, id);
+                    this.swiper.update();
+                    setTimeout(() => {
+                      if (this.swiper) this.swiper.slideNext();
+                    }, 600);
                   }
                 }
                 this.startX = 0;
@@ -108,7 +115,8 @@ export class scene implements OnInit {
                   'transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)'; // Bouncy effect
                 sceneElement.style.transform = `translateX(0px)`;
               },
-              slideChangeTransitionEnd: (swiper) => {
+              slideChangeTransitionStart: (swiper) => {
+                swiper.updateSlides();
                 if (swiper.swipeDirection == 'next') {
                   this.api
                     .getProduct(this.itemId, 1)
@@ -122,6 +130,9 @@ export class scene implements OnInit {
                       console.log(e);
                     });
                 }
+              },
+              slideChangeTransitionEnd: (swiper) => {
+                this.swiper?.update();
               },
             },
           });

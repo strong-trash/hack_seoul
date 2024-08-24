@@ -8,7 +8,18 @@
 </div>
 <!-- cart body -->
 <div calss="cart-body">
-  <!-- product 1 -->
+  <div
+    *ngIf="productList.length == 0"
+    style="
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: calc(100vh - 64px);
+      font-size: 1.2rem;
+    "
+  >
+    <p>장바구니가 비어있습니다.</p>
+  </div>
   <div *ngFor="let item of productList">
     <div class="cart-product">
       <div class="product-header">
@@ -23,9 +34,10 @@
         <div class="product-info">
           <div class="body-right-box">
             <p class="brand">(주)쿠팡</p>
-            <p class="delivery">
-              내일(일) 도착 보장 <span class="time">01:00:49 내 주문 시</span>
-            </p>
+            <div class="delivery-time-container">
+              <p class="delivery">내일(일) 도착 보장</p>
+              <span class="time">01:00:49 내 주문 시</span>
+            </div>
             <div class="price-info">
               <span class="discounted-price">{{ item.price }}원</span>
               <span class="original-price">999,990원</span>
@@ -33,11 +45,21 @@
             </div>
             <div class="product-footer">
               <div class="cnt-controls">
-                <div class="cnt-button decrease-button">─</div>
-                <input type="input" [value]="item.count" />
-                <div class="cnt-button increase-button">┼</div>
+                <div class="cnt-button decrease-button" (click)="subCnt(item)">
+                  ─
+                </div>
+                <input
+                  type="input"
+                  [value]="item.count"
+                  (focusout)="changeCnt($event, item)"
+                />
+                <div class="cnt-button increase-button" (click)="addCnt(item)">
+                  ┼
+                </div>
               </div>
-              <button class="move-to-wishlist">보관함으로 옮기기</button>
+              <div class="delete-button" (click)="delCart(item)">
+                <img src="/icons/delete.png" alt="delete" />
+              </div>
             </div>
           </div>
         </div>

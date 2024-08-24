@@ -56,4 +56,14 @@ export class API {
       product_id: prodId,
     });
   };
+  public updateCart = (cnt: number, cartId: number) => {
+    let urlLink = this.link.concat('/cart/').concat(cartId.toString());
+    return axios.put(urlLink, {
+      count: cnt,
+    });
+  };
+  public delCart = (cartId: number) => {
+    let urlLink = this.link.concat('/cart/').concat(cartId.toString());
+    return axios.delete(urlLink);
+  };
 }

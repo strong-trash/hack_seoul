@@ -16,6 +16,28 @@ export class CartComponent implements OnInit {
   goBack = () => {
     this.location.back();
   };
+  addCnt = (item: any) => {
+    item.count++;
+    this.api.updateCart(item.count, item.id);
+  };
+  subCnt = (item: any) => {
+    if (item.count <= 1) {
+      return;
+    }
+    item.count--;
+    this.api.updateCart(item.count, item.id);
+  };
+  changeCnt = (event: FocusEvent, item: any) => {
+    const inputValue = Number((event.target as HTMLInputElement).value);
+    if (inputValue < 1) {
+      return;
+    }
+    this.api.updateCart(Number(inputValue), item.id);
+  };
+  delCart = (item: any) => {
+    this.api.delCart(item.id);
+    this.productList = this.productList.filter((e) => e.id != item.id);
+  };
   ngOnInit(): void {
     this.api.getCart(1).then((res) => {
       console.log(res);
