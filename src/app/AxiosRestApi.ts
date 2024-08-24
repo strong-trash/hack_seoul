@@ -40,4 +40,20 @@ export class API {
         console.log(e);
       });
   };
+  public getCart = (usrId: number) => {
+    let usrLink = this.link.concat('/cart/').concat(usrId.toString());
+    return axios.get(usrLink, {
+      headers: {
+        'Content-Type': `application/json`,
+        'ngrok-skip-browser-warning': '69420',
+      },
+    });
+  };
+  public addCart = (usrId: number, prodId: number) => {
+    let usrLink = this.link.concat('/cart');
+    return axios.post(usrLink, {
+      user_id: usrId,
+      product_id: prodId,
+    });
+  };
 }

@@ -4,11 +4,11 @@ import { FormsModule } from '@angular/forms';
 import Swiper from 'swiper';
 import { Navigation, Pagination, Mousewheel } from 'swiper/modules';
 import { API } from '../AxiosRestApi';
-import { Router } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 @Component({
   selector: 'main-coupang',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterOutlet],
   templateUrl: './scene.component.html',
   styleUrl: './scene.component.css',
 })
@@ -92,11 +92,13 @@ export class scene implements OnInit {
                 const result = this.startX - lastX;
                 if (result > 100) {
                   //left
-                  alert('left');
+                  this.router.navigate(['cart']);
                 } else if (result <= -100) {
                   //right
-                  console.log('right');
-                  this.router.navigate(['/cart']);
+                  if (this.swiper) {
+                    const id = this.slides[this.swiper.activeIndex].id;
+                    this.api.addCart(1, id);
+                  }
                 }
                 this.startX = 0;
                 const sceneElement = document.querySelector(

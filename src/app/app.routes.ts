@@ -1,8 +1,9 @@
 import { Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { BasketComponent } from './basket/basket.component';
-
+import { CartComponent } from './cart/cart.component';
+import { scene } from './\bscene/scene.component';
 export const routes: Routes = [
   { path: '', component: AppComponent },
-  { path: 'cart', component: BasketComponent },
+  { path: 'scene', component: scene },
+  { path: 'cart', component: CartComponent },
 ];

@@ -1,0 +1,47 @@
+<div class="cart-header">
+  <div class="back-button-container" (click)="goBack()">
+    <img src="/icons/left_arrow.png" alt="back" />
+  </div>
+  <div class="logo-text-container">
+    <h1>Cart</h1>
+  </div>
+</div>
+<!-- cart body -->
+<div calss="cart-body">
+  <!-- product 1 -->
+  <div *ngFor="let item of productList">
+    <div class="cart-product">
+      <div class="product-header">
+        <label class="checkbox-container">
+          <input type="checkbox" checked="checked" />
+          <span class="checkmark"></span>
+        </label>
+        <span class="product-name">{{ item.name }}</span>
+      </div>
+      <div class="product-body">
+        <img [src]="item.image_path" alt="Product Image" />
+        <div class="product-info">
+          <div class="body-right-box">
+            <p class="brand">(주)쿠팡</p>
+            <p class="delivery">
+              내일(일) 도착 보장 <span class="time">01:00:49 내 주문 시</span>
+            </p>
+            <div class="price-info">
+              <span class="discounted-price">{{ item.price }}원</span>
+              <span class="original-price">999,990원</span>
+              <span class="shipping">로켓배송</span>
+            </div>
+            <div class="product-footer">
+              <div class="cnt-controls">
+                <div class="cnt-button decrease-button">─</div>
+                <input type="input" [value]="item.count" />
+                <div class="cnt-button increase-button">┼</div>
+              </div>
+              <button class="move-to-wishlist">보관함으로 옮기기</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
