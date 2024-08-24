@@ -1,4 +1,7 @@
+from typing import override
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from sqlalchemy import URL
 
 
 class Settings(BaseSettings):
@@ -12,7 +15,19 @@ class Settings(BaseSettings):
     db_host: str
     db_port: int
 
+    def get_db_url(self):
+        return URL.create(
+            drivername="mysql+pymysql",
+            username=self.db_user,
+            password=self.db_password,
+            host=self.db_host,
+            port=self.db_port,
+            database=self.db_name
+        )
+
 
 class TestSettings(Settings):
-    db_port: int = 9999
-    db_name: str = "test"
+
+    @override
+    def get_db_url(self):
+        return "sqlite:///pangtok.db"

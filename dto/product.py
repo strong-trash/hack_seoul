@@ -20,10 +20,10 @@ class ProductResponseDto(ProductDto):
     @staticmethod
     def from_entity(
         product: Product,
-        like_count: int,
-        dislike_count: int,
-        is_like: bool,
-        is_dislike: bool,
+        like_count: int = 0,
+        dislike_count: int = 0,
+        is_like: bool = False,
+        is_dislike: bool = False,
     ):
         return ProductResponseDto(
             id=product.id,

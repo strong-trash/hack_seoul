@@ -26,16 +26,8 @@ async def test_fastapi_app(settings):
 
 @pytest_asyncio.fixture(scope="function")
 async def engine(settings):
-    url = URL.create(
-        drivername="mysql+pymysql",
-        username=settings.db_user,
-        password=settings.db_password,
-        host=settings.db_host,
-        port=settings.db_port,
-        database=settings.db_name
-    )
     eng = create_engine(
-        url=url
+        url=settings.get_db_url()
     )
     Base.metadata.create_all(eng)
     yield eng
@@ -45,7 +37,7 @@ async def engine(settings):
 @pytest_asyncio.fixture(scope="function")
 async def session(engine):
     sessionLocal = sessionmaker(engine)
-    return sessionLocal()
+    yield sessionLocal()
 
 
 @pytest_asyncio.fixture(scope="function")

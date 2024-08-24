@@ -7,16 +7,8 @@ from settings import Settings
 
 class Database:
     def __init__(self, settings: Settings):
-        url = URL.create(
-            drivername="mysql+pymysql",
-            username=settings.db_user,
-            password=settings.db_password,
-            host=settings.db_host,
-            port=settings.db_port,
-            database=settings.db_name
-        )
         self.engine = create_engine(
-            url=url
+            url=settings.get_db_url()
         )
         self.session = sessionmaker(
             autocommit=False,

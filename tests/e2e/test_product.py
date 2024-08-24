@@ -12,7 +12,7 @@ async def test_show_product_detail_returns_200(
     async with AsyncClient(
         transport=ASGITransport(app=test_fastapi_app), base_url="http://test"
     ) as client:
-        response = await client.get("/product/0")
+        response = await client.get("/product/0/1")
 
     assert response.status_code == status.HTTP_200_OK
 
