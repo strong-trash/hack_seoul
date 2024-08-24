@@ -19,8 +19,7 @@ class Database:
     def get_session(self) -> Session:
         return self.session()
 
-    # TODO: singleton implementation
-    # def __new__(cls):
-    #     if not hasattr(cls, 'instance'):
-    #         cls.instance = super(Database, cls).__new__(cls)
-    #     return cls.instance
+    def __new__(cls, settings: Settings):
+        if not hasattr(cls, 'instance'):
+            cls.instance = super(Database, cls).__new__(cls)
+        return cls.instance
