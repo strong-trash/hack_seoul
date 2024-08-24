@@ -26,9 +26,7 @@ async def test_fastapi_app(settings):
 
 @pytest_asyncio.fixture(scope="function")
 async def engine(settings):
-    eng = create_engine(
-        url=settings.get_db_url()
-    )
+    eng = create_engine(url=settings.get_db_url())
     Base.metadata.create_all(eng)
     yield eng
     Base.metadata.drop_all(eng)
@@ -46,13 +44,13 @@ async def user():
         User(
             id=1,
             email=helper.TEST_USER_EMAIL_1,
-            password=helper.TEST_USER_PASSWORD_1
+            password=helper.TEST_USER_PASSWORD_1,
         ),
         User(
             id=2,
             email=helper.TEST_USER_EMAIL_2,
-            password=helper.TEST_USER_PASSWORD_2
-        )
+            password=helper.TEST_USER_PASSWORD_2,
+        ),
     ]
 
 
@@ -64,45 +62,28 @@ async def product():
             name=helper.TEST_PRODUCT_NAME_1,
             image_path=helper.TEST_PRODUCT_IMAGE_PATH_1,
             price=helper.TEST_PRODUCT_PRICE_1,
-            summary=helper.TEST_PRODUCT_SUMMARY_1
+            summary=helper.TEST_PRODUCT_SUMMARY_1,
         ),
         Product(
             id=2,
             name=helper.TEST_PRODUCT_NAME_2,
             image_path=helper.TEST_PRODUCT_IMAGE_PATH_2,
             price=helper.TEST_PRODUCT_PRICE_2,
-            summary=helper.TEST_PRODUCT_SUMMARY_2
-        )
+            summary=helper.TEST_PRODUCT_SUMMARY_2,
+        ),
     ]
 
 
 @pytest_asyncio.fixture(scope="function")
 async def shopping_cart():
-    return [
-        Cart(
-            id=1,
-            user_id=1,
-            product_id=1,
-            count=5
-        )
-    ]
+    return [Cart(id=1, user_id=1, product_id=1, count=5)]
 
 
 @pytest_asyncio.fixture(scope="function")
 async def like():
     return [
-        Like(
-            id=1,
-            is_like=LikeStatus.DISLIKE,
-            user_id=1,
-            product_id=1
-        ),
-        Like(
-            id=2,
-            is_like=LikeStatus.LIKE,
-            user_id=2,
-            product_id=2
-        )
+        Like(id=1, is_like=LikeStatus.DISLIKE, user_id=1, product_id=1),
+        Like(id=2, is_like=LikeStatus.LIKE, user_id=2, product_id=2),
     ]
 
 

@@ -11,9 +11,16 @@ repos:
     rev: 5.13.2
     hooks:
     -   id: isort
+        args: ["--profile=black", "--py=312", "--line-length=80"]
 -   repo: https://github.com/PyCQA/flake8
     rev: 7.0.0
     hooks:
     -   id: flake8
         additional_dependencies:
             - flake8-bugbear==24.4.21
+-   repo: https://github.com/psf/black
+    rev: 23.9.1
+    hooks:
+    -   id: black
+        language_version: python3.12
+        args: ["--line-length=80"]

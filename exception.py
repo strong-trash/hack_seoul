@@ -16,7 +16,7 @@ class NotFoundException(BaseException):
 
 exception_mapper = {
     BadRequestException: status.HTTP_400_BAD_REQUEST,
-    NotFoundException: status.HTTP_404_NOT_FOUND
+    NotFoundException: status.HTTP_404_NOT_FOUND,
 }
 
 
@@ -24,7 +24,6 @@ def handle_exception(request: Request, exc: HTTPException):
     for exception in exception_mapper:
         if isinstance(exc, exception):
             return JSONResponse(
-                status_code=exception_mapper[exception],
-                content=exc.message
+                status_code=exception_mapper[exception], content=exc.message
             )
     raise NotImplementedError

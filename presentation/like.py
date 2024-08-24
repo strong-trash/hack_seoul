@@ -14,7 +14,7 @@ api = APIRouter()
 @api.post("/like", status_code=status.HTTP_201_CREATED)
 async def like(
     command: Annotated[LikeCommand, Depends(like_command)],
-    messagebus: Annotated[MessageBus, Depends(get_messagebus)]
+    messagebus: Annotated[MessageBus, Depends(get_messagebus)],
 ) -> LikeResponseDto:
     like_obj = await messagebus.handle(command)
 
@@ -24,7 +24,7 @@ async def like(
 @api.post("/dislike", status_code=status.HTTP_201_CREATED)
 async def dislike(
     command: Annotated[DislikeCommand, Depends(dislike_command)],
-    messagebus: Annotated[MessageBus, Depends(get_messagebus)]
+    messagebus: Annotated[MessageBus, Depends(get_messagebus)],
 ) -> LikeResponseDto:
     like_obj = await messagebus.handle(command)
 

@@ -21,21 +21,14 @@ async def test_list_cart_returns_200(
 
 
 @pytest.mark.asyncio
-async def test_add_cart_returns_201(
-    test_fastapi_app, bootstrap
-):
+async def test_add_cart_returns_201(test_fastapi_app, bootstrap):
     async with AsyncClient(
         transport=ASGITransport(app=test_fastapi_app), base_url="http://test"
     ) as client:
         response = await client.post(
             "/cart",
-            headers={
-                "Content-Type": "application/json"
-            },
-            json={
-                "user_id": 1,
-                "product_id": 2
-            }
+            headers={"Content-Type": "application/json"},
+            json={"user_id": 1, "product_id": 2},
         )
 
     assert response.status_code == status.HTTP_201_CREATED
@@ -50,33 +43,22 @@ async def test_add_cart_returns_201_when_increment_count(
     ) as client:
         response = await client.post(
             "/cart",
-            headers={
-                "Content-Type": "application/json"
-            },
-            json={
-                "user_id": 1,
-                "product_id": 1
-            }
+            headers={"Content-Type": "application/json"},
+            json={"user_id": 1, "product_id": 1},
         )
 
     assert response.status_code == status.HTTP_201_CREATED
 
 
 @pytest.mark.asyncio
-async def test_update_cart_returns_202(
-    test_fastapi_app, bootstrap
-):
+async def test_update_cart_returns_202(test_fastapi_app, bootstrap):
     async with AsyncClient(
         transport=ASGITransport(app=test_fastapi_app), base_url="http://test"
     ) as client:
         response = await client.put(
             "/cart/1",
-            headers={
-                "Content-Type": "application/json"
-            },
-            json={
-                "count": 123
-            }
+            headers={"Content-Type": "application/json"},
+            json={"count": 123},
         )
 
     assert response.status_code == status.HTTP_202_ACCEPTED
@@ -91,41 +73,29 @@ async def test_update_cart_returns_400_when_invalid_count(
     ) as client:
         response = await client.put(
             "/cart/1",
-            headers={
-                "Content-Type": "application/json"
-            },
-            json={
-                "count": 0
-            }
+            headers={"Content-Type": "application/json"},
+            json={"count": 0},
         )
 
     assert response.status_code == status.HTTP_400_BAD_REQUEST
 
 
 @pytest.mark.asyncio
-async def test_update_cart_returns_404(
-    test_fastapi_app, bootstrap
-):
+async def test_update_cart_returns_404(test_fastapi_app, bootstrap):
     async with AsyncClient(
         transport=ASGITransport(app=test_fastapi_app), base_url="http://test"
     ) as client:
         response = await client.put(
             "/cart/-1",
-            headers={
-                "Content-Type": "application/json"
-            },
-            json={
-                "count": 123
-            }
+            headers={"Content-Type": "application/json"},
+            json={"count": 123},
         )
 
     assert response.status_code == status.HTTP_404_NOT_FOUND
 
 
 @pytest.mark.asyncio
-async def test_delete_cart_returns_204(
-    test_fastapi_app, bootstrap
-):
+async def test_delete_cart_returns_204(test_fastapi_app, bootstrap):
     async with AsyncClient(
         transport=ASGITransport(app=test_fastapi_app), base_url="http://test"
     ) as client:
@@ -137,9 +107,7 @@ async def test_delete_cart_returns_204(
 
 
 @pytest.mark.asyncio
-async def test_delete_cart_returns_404(
-    test_fastapi_app, bootstrap
-):
+async def test_delete_cart_returns_404(test_fastapi_app, bootstrap):
     async with AsyncClient(
         transport=ASGITransport(app=test_fastapi_app), base_url="http://test"
     ) as client:

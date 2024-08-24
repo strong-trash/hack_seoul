@@ -18,9 +18,7 @@ async def get_database(
     return Database(settings)
 
 
-async def get_session(
-    database: Annotated[Database, Depends(get_database)]
-):
+async def get_session(database: Annotated[Database, Depends(get_database)]):
     session = database.get_session()
     try:
         yield session
@@ -30,7 +28,5 @@ async def get_session(
         raise e
 
 
-async def get_messagebus(
-    session: Annotated[Session, Depends(get_session)]
-):
+async def get_messagebus(session: Annotated[Session, Depends(get_session)]):
     return MessageBus(session)

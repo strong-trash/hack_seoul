@@ -18,8 +18,7 @@ db_user = os.environ["DB_USER"]
 db_password = os.environ["DB_PASSWORD"]
 db_port = os.environ["DB_PORT"]
 url = (
-    f"mysql+pymysql://{db_user}:{db_password}"
-    f"@{db_host}:{db_port}/{db_name}"
+    f"mysql+pymysql://{db_user}:{db_password}" f"@{db_host}:{db_port}/{db_name}"
 )
 config.set_main_option("sqlalchemy.url", url)
 

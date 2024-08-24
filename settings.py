@@ -6,7 +6,7 @@ from sqlalchemy import URL
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file='.env', env_file_encoding='utf-8'
+        env_file=".env", env_file_encoding="utf-8"
     )
 
     db_name: str = str()
@@ -22,12 +22,11 @@ class Settings(BaseSettings):
             password=self.db_password,
             host=self.db_host,
             port=self.db_port,
-            database=self.db_name
+            database=self.db_name,
         )
 
 
 class TestSettings(Settings):
-
     @override
     def get_db_url(self):
         return "sqlite:///pangtok.db"

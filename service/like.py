@@ -6,20 +6,16 @@ from orm.like import Like
 from repository.like import LikeRepository
 
 
-async def like(
-    command: LikeCommand,
-    session: Session
-) -> Like:
+async def like(command: LikeCommand, session: Session) -> Like:
     repository = LikeRepository(session)
     obj = repository.get_by_user_id_and_product_id(
-        user_id=command.user_id,
-        product_id=command.product_id
+        user_id=command.user_id, product_id=command.product_id
     )
     if obj is None:
         obj = Like(
             user_id=command.user_id,
             product_id=command.product_id,
-            is_like=LikeStatus.LIKE
+            is_like=LikeStatus.LIKE,
         )
         repository.add(obj)
     elif obj.is_like == LikeStatus.DISLIKE:
@@ -27,20 +23,16 @@ async def like(
     return obj
 
 
-async def dislike(
-    command: DislikeCommand,
-    session: Session
-) -> Like:
+async def dislike(command: DislikeCommand, session: Session) -> Like:
     repository = LikeRepository(session)
     obj = repository.get_by_user_id_and_product_id(
-        user_id=command.user_id,
-        product_id=command.product_id
+        user_id=command.user_id, product_id=command.product_id
     )
     if obj is None:
         obj = Like(
             user_id=command.user_id,
             product_id=command.product_id,
-            is_like=LikeStatus.DISLIKE
+            is_like=LikeStatus.DISLIKE,
         )
         repository.add(obj)
     elif obj.is_like == LikeStatus.LIKE:

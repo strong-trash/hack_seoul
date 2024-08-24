@@ -6,9 +6,7 @@ from tests import helper
 
 
 @pytest.mark.asyncio
-async def test_show_product_detail_returns_200(
-    test_fastapi_app, bootstrap
-):
+async def test_show_product_detail_returns_200(test_fastapi_app, bootstrap):
     async with AsyncClient(
         transport=ASGITransport(app=test_fastapi_app), base_url="http://test"
     ) as client:
@@ -44,9 +42,7 @@ async def test_show_product_detail_returns_200_when_last_id(
 
 
 @pytest.mark.asyncio
-async def test_list_product_returns_200(
-    test_fastapi_app, bootstrap, product
-):
+async def test_list_product_returns_200(test_fastapi_app, bootstrap, product):
     async with AsyncClient(
         transport=ASGITransport(app=test_fastapi_app), base_url="http://test"
     ) as client:
@@ -60,22 +56,18 @@ async def test_list_product_returns_200(
 
 
 @pytest.mark.asyncio
-async def test_add_product_returns_201(
-    test_fastapi_app, bootstrap, product
-):
+async def test_add_product_returns_201(test_fastapi_app, bootstrap, product):
     async with AsyncClient(
         transport=ASGITransport(app=test_fastapi_app), base_url="http://test"
     ) as client:
         response = await client.post(
             "/product",
-            headers={
-                "Content-Type": "application/json"
-            },
+            headers={"Content-Type": "application/json"},
             json={
                 "name": "product_name",
                 "image_path": "product_image_path",
                 "price": 50000,
-            }
+            },
         )
 
     assert response.status_code == status.HTTP_201_CREATED

@@ -32,7 +32,7 @@ async def show_product(
         like_count=len(like_user_ids),
         dislike_count=len(dislike_user_ids),
         is_like=user_id in like_user_ids,
-        is_dislike=user_id in dislike_user_ids
+        is_dislike=user_id in dislike_user_ids,
     )
 
 
@@ -45,16 +45,13 @@ async def list_product(
     return products
 
 
-async def add_product(
-    command: AddProductCommand,
-    session: Session
-) -> Product:
+async def add_product(command: AddProductCommand, session: Session) -> Product:
     repository = ProductRepository(session)
     product = Product(
         name=command.name,
         image_path=command.image_path,
         price=command.price,
-        summary=command.summary
+        summary=command.summary,
     )
     repository.add(product)
 

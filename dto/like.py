@@ -18,5 +18,5 @@ class LikeResponseDto(BaseModel):
         return LikeResponseDto(
             is_like=like.is_like,
             user_id=like.user_id,
-            product_id=like.product_id
+            product_id=like.product_id,
         )

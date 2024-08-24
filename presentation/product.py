@@ -17,11 +17,9 @@ api = APIRouter()
 async def show_product(
     product_id: int,
     user_id: int,
-    session: Annotated[Session, Depends(get_session)]
+    session: Annotated[Session, Depends(get_session)],
 ) -> ProductResponseDto:
-    return await product_service.show_product(
-        product_id, user_id, session
-    )
+    return await product_service.show_product(product_id, user_id, session)
 
 
 @api.get("", status_code=status.HTTP_200_OK)
@@ -31,21 +29,18 @@ async def list_product(
     products = await product_service.list_product(session)
 
     product_responses = [
-        ProductResponseDto.from_entity(product)
-        for product in products
+        ProductResponseDto.from_entity(product) for product in products
     ]
 
     return ProductResponseModel(products=product_responses)
 
 
 @api.post(
-    "",
-    status_code=status.HTTP_201_CREATED,
-    response_model_exclude_none=True
+    "", status_code=status.HTTP_201_CREATED, response_model_exclude_none=True
 )
 async def add_product(
     command: Annotated[AddProductCommand, Depends(add_product_command)],
-    messagebus: Annotated[MessageBus, Depends(get_messagebus)]
+    messagebus: Annotated[MessageBus, Depends(get_messagebus)],
 ) -> ProductResponseDto:
     product = await messagebus.handle(command)
 
