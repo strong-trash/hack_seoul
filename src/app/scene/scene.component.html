@@ -15,11 +15,18 @@
               <div class="product-review-container">
                 <p class="review-text">{{ slide.summary }}</p>
               </div>
-              <div class="controls-container">
-                <div class="like-button action-button">
+              <div class="controls-container" (click)="like(slide.id, 1)">
+                <div
+                  class="like-button action-button"
+                  [ngClass]="likeClassList"
+                >
                   <span>Like</span>
                 </div>
-                <div class="dislike-button action-button">
+                <div
+                  class="dislike-button action-button"
+                  [ngClass]="dislikeClassList"
+                  (click)="dislike(slide.id, 1)"
+                >
                   <span>Dislike</span>
                 </div>
               </div>

@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import Swiper from 'swiper';
 import { Navigation, Pagination, Mousewheel } from 'swiper/modules';
 import { API } from '../AxiosRestApi';
+import { Router } from '@angular/router';
 @Component({
   selector: 'main-coupang',
   standalone: true,
@@ -13,23 +14,34 @@ import { API } from '../AxiosRestApi';
 })
 export class scene implements OnInit {
   api: API = new API();
-  isDrag: boolean = false;
   swiper: Swiper | undefined;
-  test: String = '';
   startX: number = 0;
   itemId: number = 0;
-  formerItemId: number = 0;
-  slides: any[] = [];
 
+  slides: any[] = [];
+  dislikeClassList: string[] = [];
+  likeClassList: string[] = [];
+  constructor(private router: Router) {}
+  KRWon = new Intl.NumberFormat('ko-KR', {
+    style: 'currency',
+    currency: 'KRW',
+  });
+  like = (proId: number, usrId: number) => {
+    this.api.like(proId, usrId);
+  };
+
+  dislike = (proId: number, usrId: number) => {
+    this.api.dislike(proId, usrId);
+  };
   ngOnInit(): void {}
   ngAfterViewInit() {
-    this.api.getProduct(this.itemId).then((res: any) => {
+    this.api.getProduct(this.itemId, 1).then((res: any) => {
       this.slides.push(res.data);
       this.itemId = res.data.id;
-      this.api.getProduct(this.itemId).then((res: any) => {
+      this.api.getProduct(this.itemId, 1).then((res: any) => {
         this.slides.push(res.data);
         this.itemId = res.data.id;
-        this.api.getProduct(this.itemId).then((res: any) => {
+        this.api.getProduct(this.itemId, 1).then((res: any) => {
           this.slides.push(res.data);
           this.itemId = res.data.id;
           this.swiper = new Swiper('.swiper-container', {
@@ -80,8 +92,11 @@ export class scene implements OnInit {
                 const result = this.startX - lastX;
                 if (result > 100) {
                   //left
+                  alert('left');
                 } else if (result <= -100) {
                   //right
+                  console.log('right');
+                  this.router.navigate(['/cart']);
                 }
                 this.startX = 0;
                 const sceneElement = document.querySelector(
@@ -92,13 +107,18 @@ export class scene implements OnInit {
                 sceneElement.style.transform = `translateX(0px)`;
               },
               slideChangeTransitionEnd: (swiper) => {
-                console.log(swiper.swipeDirection);
-                swiper.update();
                 if (swiper.swipeDirection == 'next') {
-                  this.api.getProduct(this.itemId).then((res: any) => {
-                    this.slides.push(res.data);
-                    this.itemId = res.data.id;
-                  });
+                  this.api
+                    .getProduct(this.itemId, 1)
+                    .then((res: any) => {
+                      res.data.price = this.KRWon.format(res.data.price);
+                      this.slides.push(res.data);
+                      swiper.update();
+                      this.itemId = res.data.id;
+                    })
+                    .catch((e) => {
+                      console.log(e);
+                    });
                 }
               },
             },

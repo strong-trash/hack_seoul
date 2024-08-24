@@ -20,12 +20,12 @@
 }
 .scene .product-info-container .product-name {
   padding: 4px;
-  font-size: 1.5rem;
+  font-size: 1.11rem;
   font-weight: 600;
 }
 .scene .product-info-container .product-price {
   padding: 4px;
-  font-size: 0.9rem;
+  font-size: 1.3rem;
   color: var(--gray-700);
 }
 
