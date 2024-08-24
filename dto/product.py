@@ -11,19 +11,19 @@ class ProductDto(BaseModel):
 
 
 class ProductResponseDto(ProductDto):
-    id: int
-    like_count: int
-    dislike_count: int
-    is_like: bool
-    is_dislike: bool
+    id: int | None
+    like_count: int | None
+    dislike_count: int | None
+    is_like: bool | None
+    is_dislike: bool | None
 
     @staticmethod
     def from_entity(
         product: Product,
-        like_count: int = 0,
-        dislike_count: int = 0,
-        is_like: bool = False,
-        is_dislike: bool = False,
+        like_count: int | None = None,
+        dislike_count: int | None = None,
+        is_like: bool | None = None,
+        is_dislike: bool | None = None,
     ):
         return ProductResponseDto(
             id=product.id,

@@ -33,20 +33,30 @@ async def list_cart(
     )
 
 
-@api.post("", status_code=status.HTTP_201_CREATED)
+@api.post(
+    "",
+    status_code=status.HTTP_201_CREATED,
+    response_model_exclude_none=True
+)
 async def add_cart(
     command: Annotated[AddCartCommand, Depends(add_cart_command)],
     messagebus: Annotated[MessageBus, Depends(get_messagebus)]
-):
-    return await messagebus.handle(command)
+) -> CartResponseDto:
+    cart = await messagebus.handle(command)
+    return CartResponseDto.from_entity(cart)
 
 
-@api.put("/{cart_id}", status_code=status.HTTP_202_ACCEPTED)
+@api.put(
+    "/{cart_id}",
+    status_code=status.HTTP_202_ACCEPTED,
+    response_model_exclude_none=True
+)
 async def update_cart(
     command: Annotated[UpdateCartCommand, Depends(update_cart_command)],
     messagebus: Annotated[MessageBus, Depends(get_messagebus)]
-):
-    return await messagebus.handle(command)
+) -> CartResponseDto:
+    cart = await messagebus.handle(command)
+    return CartResponseDto.from_entity(cart)
 
 
 @api.delete("/{cart_id}", status_code=status.HTTP_204_NO_CONTENT)

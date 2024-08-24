@@ -9,7 +9,7 @@ from repository.cart import CartRepository
 async def list_cart(
     user_id: int,
     session: Session
-):
+) -> list[Cart]:
     repository = CartRepository(session)
 
     cart_products = repository.get_by_user_id(user_id)
@@ -19,7 +19,7 @@ async def list_cart(
 async def add_cart(
     command: AddCartCommand,
     session: Session
-):
+) -> Cart:
     repository = CartRepository(session)
     obj = repository.get_by_user_id_and_product_id(
         user_id=command.user_id,
@@ -37,16 +37,17 @@ async def add_cart(
             cart_id=obj.id,
             count=obj.count + 1
         )
-        await update_cart(
+        obj = await update_cart(
             update_command,
             session
         )
+    return obj
 
 
 async def update_cart(
     command: UpdateCartCommand,
     session: Session
-):
+) -> Cart:
     if command.count <= 0:
         raise BadRequestException
     repository = CartRepository(session)
@@ -54,6 +55,7 @@ async def update_cart(
     if obj is None:
         raise NotFoundException
     obj.count = command.count
+    return obj
 
 
 async def delete_cart(

@@ -48,12 +48,14 @@ async def list_product(
 async def add_product(
     command: AddProductCommand,
     session: Session
-):
+) -> Product:
     repository = ProductRepository(session)
-    obj = Product(
+    product = Product(
         name=command.name,
         image_path=command.image_path,
         price=command.price,
         summary=command.summary
     )
-    repository.add(obj)
+    repository.add(product)
+
+    return product

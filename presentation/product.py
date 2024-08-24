@@ -38,9 +38,15 @@ async def list_product(
     return ProductResponseModel(products=product_responses)
 
 
-@api.post("", status_code=status.HTTP_201_CREATED)
+@api.post(
+    "",
+    status_code=status.HTTP_201_CREATED,
+    response_model_exclude_none=True
+)
 async def add_product(
     command: Annotated[AddProductCommand, Depends(add_product_command)],
     messagebus: Annotated[MessageBus, Depends(get_messagebus)]
-):
-    return await messagebus.handle(command)
+) -> ProductResponseDto:
+    product = await messagebus.handle(command)
+
+    return ProductResponseDto.from_entity(product)

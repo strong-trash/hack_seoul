@@ -13,21 +13,21 @@ class CartUpdateDto(BaseModel):
 
 
 class CartResponseDto(BaseModel):
-    id: int
-    name: str
-    image_path: str
-    price: int
+    id: int | None
     count: int
+    name: str | None
+    image_path: str | None
+    price: int | None
 
     @staticmethod
     def from_entity(cart: Cart):
         product = cart.product
         return CartResponseDto(
             id=cart.id,
-            name=product.name,
-            image_path=product.image_path,
-            price=product.price,
-            count=cart.count
+            count=cart.count,
+            name=product and product.name,
+            image_path=product and product.image_path,
+            price=product and product.price,
         )
 
 
