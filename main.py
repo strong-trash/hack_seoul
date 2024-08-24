@@ -7,7 +7,7 @@ from sqlalchemy.orm.session import Session
 from const import LikeStatus
 from depends import get_session
 
-from dto.cart import CartDto, CartUpdateDto
+from dto.cart import CartDto, CartResponseDto, CartResponseModel, CartUpdateDto
 from dto.like import LikeDto
 from dto.product import ProductDto
 from orm.cart import Cart
@@ -79,11 +79,23 @@ async def dislike(
     return like_data
 
 
+@app.get("/product/{product_id}", status_code=status.HTTP_200_OK)
+async def show_product(
+    product_id: int,
+    session: Annotated[Session, Depends(get_session)]
+):
+    repository = ProductRepository(session)
+    product = repository.get_greater_than_id(product_id)
+    if product is None:
+        product = repository.get_greater_than_id(0)
+    return product
+
+
 @app.post("/product", status_code=status.HTTP_201_CREATED)
 async def add_product(
     product: ProductDto,
     session: Annotated[Session, Depends(get_session)]
-):
+) -> ProductDto:
     repository = ProductRepository(session)
     obj = Product(
         name=product.name,
@@ -95,11 +107,28 @@ async def add_product(
     return product
 
 
+@app.get("/cart/{user_id}", status_code=status.HTTP_200_OK)
+async def list_shoppingcart(
+    user_id: int,
+    session: Annotated[Session, Depends(get_session)]
+) -> CartResponseModel:
+    repository = CartRepository(session)
+
+    cart_products = repository.get_by_user_id(user_id)
+    products = [
+        CartResponseDto.from_entity(cart_product)
+        for cart_product in cart_products
+    ]
+    return CartResponseModel(
+        products=products
+    )
+
+
 @app.post("/cart", status_code=status.HTTP_201_CREATED)
 async def add_shoppingcart(
     cart: CartDto,
     session: Annotated[Session, Depends(get_session)]
-):
+) -> CartDto:
     repository = CartRepository(session)
     obj = Cart(
         user_id=cart.user_id,
@@ -115,7 +144,7 @@ async def update_shoppingcart(
     cart_id: int,
     cart: CartUpdateDto,
     session: Annotated[Session, Depends(get_session)]
-):
+) -> CartUpdateDto:
     if cart.count <= 0:
         return HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
