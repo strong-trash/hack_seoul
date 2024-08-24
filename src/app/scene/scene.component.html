@@ -1,0 +1,32 @@
+<div style="display: flex; justify-content: center">
+  <div style="width: 500px; height: auto; overflow-y: hidden">
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" *ngFor="let slide of slides">
+          <div class="scene">
+            <div class="scene">
+              <div class="product-info-container">
+                <p class="product-name">{{ slide.name }}</p>
+                <p class="product-price">{{ slide.price }}원</p>
+              </div>
+              <div class="product-thumbnail-container">
+                <img [src]="slide.image_path" alt="product thumbnail" />
+              </div>
+              <div class="product-review-container">
+                <p class="review-text">{{ slide.summary }}</p>
+              </div>
+              <div class="controls-container">
+                <div class="like-button action-button">
+                  <span>Like</span>
+                </div>
+                <div class="dislike-button action-button">
+                  <span>Dislike</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
