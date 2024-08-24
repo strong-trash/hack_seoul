@@ -21,12 +21,28 @@ async def add_shoppingcart(
     session: Session
 ):
     repository = CartRepository(session)
-    obj = Cart(
+    obj = repository.get_by_user_id_and_product_id(
         user_id=cart.user_id,
-        product_id=cart.product_id,
-        count=1
+        product_id=cart.product_id
     )
-    repository.add(obj)
+    if obj is None:
+        obj = Cart(
+            user_id=cart.user_id,
+            product_id=cart.product_id,
+            count=1
+        )
+        repository.add(obj)
+    else:
+        cart_update = CartUpdateDto(
+            user_id=obj.user_id,
+            product_id=obj.product_id,
+            count=obj.count + 1
+        )
+        await update_shoppingcart(
+            obj.id,
+            cart_update,
+            session
+        )
 
 
 async def update_shoppingcart(

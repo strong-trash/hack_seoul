@@ -2,8 +2,6 @@ import pytest
 from fastapi import status
 from httpx import ASGITransport, AsyncClient
 
-from tests import helper
-
 
 @pytest.mark.asyncio
 async def test_list_shoppingcart_returns_200(
@@ -37,6 +35,27 @@ async def test_add_shoppingcart_returns_201(
             json={
                 "user_id": 1,
                 "product_id": 2
+            }
+        )
+
+    assert response.status_code == status.HTTP_201_CREATED
+
+
+@pytest.mark.asyncio
+async def test_add_shoppingcart_returns_201_when_increment_count(
+    test_fastapi_app, bootstrap
+):
+    async with AsyncClient(
+        transport=ASGITransport(app=test_fastapi_app), base_url="http://test"
+    ) as client:
+        response = await client.post(
+            "/cart",
+            headers={
+                "Content-Type": "application/json"
+            },
+            json={
+                "user_id": 1,
+                "product_id": 1
             }
         )
 

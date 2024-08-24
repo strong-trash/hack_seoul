@@ -11,7 +11,7 @@ Pytest
 Pydantic
 ```
 
-## Installation
+## Installation / Execution
 
 ```
 docker build -t pangtok .
@@ -116,16 +116,16 @@ presentation/like.py              15      0   100%
 presentation/ping.py               5      0   100%
 presentation/product.py           19      0   100%
 repository/base.py                16      0   100%
-repository/cart.py                 7      0   100%
+repository/cart.py                 9      0   100%
 repository/like.py                 8      0   100%
 repository/product.py              6      0   100%
 service/__init__.py                0      0   100%
-service/cart.py                   27      0   100%
+service/cart.py                   31      0   100%
 service/like.py                   21      0   100%
 service/product.py                24      0   100%
 settings.py                       16      0   100%
 tests/conftest.py                 49      0   100%
-tests/e2e/test_cart.py            41      0   100%
+tests/e2e/test_cart.py            45      0   100%
 tests/e2e/test_like.py            23      0   100%
 tests/e2e/test_ping.py             8      0   100%
 tests/e2e/test_product.py         36      0   100%
@@ -133,7 +133,7 @@ tests/helper.py                   12      0   100%
 tests/unit/test_exception.py       9      0   100%
 tests/unit/test_settings.py        6      0   100%
 ------------------------------------------------------------
-TOTAL                            540      0   100%
+TOTAL                            550      0   100%
 ```
 
 ## ERD
