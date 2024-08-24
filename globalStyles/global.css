@@ -1,8 +1,16 @@
+
+
+/* 
+  fonts
+*/
+@import url('https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&display=swap');
+      /* font-family: "Edu AU VIC WA NT Hand"; */
+
 /*
   border-box setting.
 */
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 /* 
