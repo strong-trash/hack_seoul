@@ -44,7 +44,7 @@ async def update_shoppingcart(
     cart: CartUpdateDto,
     session: Annotated[Session, Depends(get_session)]
 ) -> CartUpdateDto:
-    await update_shoppingcart(cart_id, cart, session)
+    await cart_service.update_shoppingcart(cart_id, cart, session)
 
     return cart
 

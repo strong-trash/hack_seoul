@@ -7,9 +7,10 @@ from presentation.cart import api as cart_api
 from presentation.like import api as like_api
 from presentation.ping import api as ping_api
 from presentation.product import api as product_api
+from settings import Settings
 
 
-def create_app():
+def create_app(settings: Settings):
     app = FastAPI()
 
     app.add_middleware(
@@ -19,6 +20,8 @@ def create_app():
         allow_methods=["*"],
         allow_headers=["*"],
     )
+
+    app.settings = settings
 
     app.add_exception_handler(BaseException, handle_exception)
 

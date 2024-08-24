@@ -11,3 +11,8 @@ class Settings(BaseSettings):
     db_password: str
     db_host: str
     db_port: int
+
+
+class TestSettings(Settings):
+    db_port: int = 9999
+    db_name: str = "test"

@@ -16,7 +16,7 @@ class Database:
             database=settings.db_name
         )
         self.engine = create_engine(
-            url=url, echo=True
+            url=url
         )
         self.session = sessionmaker(
             autocommit=False,

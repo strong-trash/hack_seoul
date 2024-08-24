@@ -1,13 +1,13 @@
 from typing import Annotated
 
-from fastapi import Depends
+from fastapi import Depends, Request
 
 from db import Database
 from settings import Settings
 
 
-async def get_settings() -> Settings:
-    return Settings()
+async def get_settings(request: Request) -> Settings:
+    return request.app.settings
 
 
 async def get_database(
