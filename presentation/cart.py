@@ -6,9 +6,7 @@ from sqlalchemy.orm.session import Session
 
 from depends import get_session
 from dto.cart import CartDto, CartResponseDto, CartResponseModel, CartUpdateDto
-from exception import BadRequestException, NotFoundException
-from orm.cart import Cart
-from repository.cart import CartRepository
+from service import cart as cart_service
 
 api = APIRouter()
 
@@ -18,9 +16,10 @@ async def list_shoppingcart(
     user_id: int,
     session: Annotated[Session, Depends(get_session)]
 ) -> CartResponseModel:
-    repository = CartRepository(session)
+    cart_products = await cart_service.list_shoppingcart(
+        user_id, session
+    )
 
-    cart_products = repository.get_by_user_id(user_id)
     products = [
         CartResponseDto.from_entity(cart_product)
         for cart_product in cart_products
@@ -35,13 +34,7 @@ async def add_shoppingcart(
     cart: CartDto,
     session: Annotated[Session, Depends(get_session)]
 ) -> CartDto:
-    repository = CartRepository(session)
-    obj = Cart(
-        user_id=cart.user_id,
-        product_id=cart.product_id,
-        count=1
-    )
-    repository.add(obj)
+    await cart_service.add_shoppingcart(cart, session)
     return cart
 
 
@@ -51,13 +44,7 @@ async def update_shoppingcart(
     cart: CartUpdateDto,
     session: Annotated[Session, Depends(get_session)]
 ) -> CartUpdateDto:
-    if cart.count <= 0:
-        raise BadRequestException
-    repository = CartRepository(session)
-    obj = repository.get_by_id(cart_id)
-    if obj is None:
-        raise NotFoundException
-    obj.count = cart.count
+    await update_shoppingcart(cart_id, cart, session)
 
     return cart
 
@@ -67,8 +54,6 @@ async def delete_shoppingcart(
     cart_id: int,
     session: Annotated[Session, Depends(get_session)]
 ) -> None:
-    repository = CartRepository(session)
-    obj = repository.get_by_id(cart_id)
-    if obj is None:
-        raise NotFoundException
-    repository.delete(obj)
+    await cart_service.delete_shoppingcart(
+        cart_id, session
+    )

@@ -1,13 +1,11 @@
-from fastapi import APIRouter, status, Depends
-
 from typing import Annotated
 
+from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm.session import Session
 
 from depends import get_session
 from dto.product import ProductDto, ProductResponseDto, ProductResponseModel
-from orm.product import Product
-from repository.product import ProductRepository
+from service import product as product_service
 
 api = APIRouter()
 
@@ -17,10 +15,9 @@ async def show_product(
     product_id: int,
     session: Annotated[Session, Depends(get_session)]
 ):
-    repository = ProductRepository(session)
-    product = repository.get_greater_than_id(product_id)
-    if product is None:
-        product = repository.get_greater_than_id(0)
+    product = await product_service.show_product(
+        product_id, session
+    )
     return product
 
 
@@ -28,8 +25,7 @@ async def show_product(
 async def list_product(
     session: Annotated[Session, Depends(get_session)]
 ) -> ProductResponseModel:
-    repository = ProductRepository(session)
-    products = repository.get_all()
+    products = await product_service.list_product(session)
 
     product_responses = [
         ProductResponseDto.from_entity(product)
@@ -44,12 +40,7 @@ async def add_product(
     product: ProductDto,
     session: Annotated[Session, Depends(get_session)]
 ) -> ProductDto:
-    repository = ProductRepository(session)
-    obj = Product(
-        name=product.name,
-        image_path=product.image_path,
-        price=product.price,
-        summary=product.summary
+    await product_service.add_product(
+        product, session
     )
-    repository.add(obj)
     return product

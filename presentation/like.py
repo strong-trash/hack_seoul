@@ -1,35 +1,21 @@
 from typing import Annotated
 
-from fastapi import Depends, status, APIRouter
+from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm.session import Session
 
-from const import LikeStatus
 from depends import get_session
 from dto.like import LikeDto
-from orm.like import Like
-from repository.like import LikeRepository
+from service import like as like_service
 
 api = APIRouter()
+
 
 @api.post("/like", status_code=status.HTTP_201_CREATED)
 async def like(
     like_data: LikeDto,
     session: Annotated[Session, Depends(get_session)]
 ) -> LikeDto:
-    repository = LikeRepository(session)
-    obj = repository.get_by_user_id_and_product_id(
-        user_id=like_data.user_id,
-        product_id=like_data.product_id
-    )
-    if obj is None:
-        obj = Like(
-            user_id=like_data.user_id,
-            product_id=like_data.product_id,
-            is_like=LikeStatus.LIKE
-        )
-        repository.add(obj)
-    elif obj.is_like == LikeStatus.DISLIKE:
-        obj.is_like = LikeStatus.LIKE
+    await like_service.like(like_data, session)
 
     return like_data
 
@@ -39,19 +25,6 @@ async def dislike(
     like_data: LikeDto,
     session: Annotated[Session, Depends(get_session)]
 ) -> LikeDto:
-    repository = LikeRepository(session)
-    obj = repository.get_by_user_id_and_product_id(
-        user_id=like_data.user_id,
-        product_id=like_data.product_id
-    )
-    if obj is None:
-        obj = Like(
-            user_id=like_data.user_id,
-            product_id=like_data.product_id,
-            is_like=LikeStatus.DISLIKE
-        )
-        repository.add(obj)
-    elif obj.is_like == LikeStatus.LIKE:
-        obj.is_like = LikeStatus.DISLIKE
+    await like_service.dislike(like_data, session)
 
     return like_data
