@@ -96,6 +96,12 @@ async def like():
             is_like=LikeStatus.DISLIKE,
             user_id=1,
             product_id=1
+        ),
+        Like(
+            id=2,
+            is_like=LikeStatus.LIKE,
+            user_id=2,
+            product_id=2
         )
     ]
 
