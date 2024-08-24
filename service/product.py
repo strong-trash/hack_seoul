@@ -25,7 +25,7 @@ async def show_product(
     dislike_user_ids = [
         like.user_id for like in likes if like.is_like == LikeStatus.DISLIKE
     ]
-    
+
     return ProductResponseDto.from_entity(
         product=product,
         like_count=len(like_user_ids),

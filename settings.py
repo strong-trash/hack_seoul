@@ -9,11 +9,11 @@ class Settings(BaseSettings):
         env_file='.env', env_file_encoding='utf-8'
     )
 
-    db_name: str
-    db_user: str
-    db_password: str
-    db_host: str
-    db_port: int
+    db_name: str = str()
+    db_user: str = str()
+    db_password: str = str()
+    db_host: str = str()
+    db_port: int = int()
 
     def get_db_url(self):
         return URL.create(
