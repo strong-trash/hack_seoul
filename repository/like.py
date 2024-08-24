@@ -16,3 +16,13 @@ class LikeRepository(Repository):
             self.model.user_id == user_id,
             self.model.product_id == product_id
         ).first()
+
+    def get_by_product_id(
+        self,
+        product_id: int
+    ) -> list[Like]:
+        return self.session.query(
+            self.model
+        ).filter(
+            self.model.product_id == product_id
+        ).all()

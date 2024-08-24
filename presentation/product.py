@@ -10,15 +10,15 @@ from service import product as product_service
 api = APIRouter()
 
 
-@api.get("/{product_id}", status_code=status.HTTP_200_OK)
+@api.get("/{product_id}/{user_id}", status_code=status.HTTP_200_OK)
 async def show_product(
     product_id: int,
+    user_id: int,
     session: Annotated[Session, Depends(get_session)]
-):
-    product = await product_service.show_product(
-        product_id, session
+) -> ProductResponseDto:
+    return await product_service.show_product(
+        product_id, user_id, session
     )
-    return product
 
 
 @api.get("", status_code=status.HTTP_200_OK)
