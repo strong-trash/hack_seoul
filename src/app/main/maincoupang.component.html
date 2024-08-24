@@ -1,0 +1,12 @@
+<main class="main">
+  <input type="text" [(ngModel)]="test" />
+  <div class="content">hello world {{ test }}</div>
+  <button (click)="onClick()">click 해</button>
+  <Swiper [direction]="'vertical'" [mousewheel]="true" class="mySwiper">
+    <ng-template swiperSlide *ngFor="let slide of slides">
+      <div class="slide-content">
+        {{ slide.content }}
+      </div>
+    </ng-template>
+  </Swiper>
+</main>
