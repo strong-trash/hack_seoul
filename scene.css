@@ -1,0 +1,79 @@
+@import url('./globalStyles/global.css');
+
+.scene {
+    height : 100vh;
+    padding : 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    background-color : var(--background-color);
+}
+
+/* 상품 정보 */
+.scene .product-info-container {
+    margin: 20px;
+
+    display: flex;
+    flex-direction : column;
+    align-items: center;
+}
+.scene .product-info-container .product-name {
+    padding : 4px;
+    font-size : 1rem;
+    font-weight : 600;
+}
+.scene .product-info-container .product-price {
+    padding : 4px;
+    font-size : 0.9rem;
+    color : var(--gray-700);
+}
+.scene .product-info-container .img-wrap {
+    width : 100%;
+    padding : 4px;
+    height : 50%;
+    
+    margin : 10px 0;
+}
+.scene .product-info-container img {
+    height : auto; 
+    width : 100%;
+    border-radius : 10px;
+    object-fit : scale-down;
+}
+
+/* 상품 리뷰 */
+.scene .product-review-container {
+    padding : 12px;
+    border : 1px solid var(--gray-300);
+    border-radius : 10px;
+    overflow-y : auto;
+}
+
+/* 좋아요 싫어요 버튼 */
+.scene .controls-container {
+    display : flex;
+    gap : 16px;
+    justify-content:stretch;
+    align-items : center;
+    padding-top : 16px;
+    width : 100%;
+
+}
+.scene .controls-container .action-button {
+    flex:1;
+    padding : 10px 20px;
+    border-radius : 10px;
+    font-weight : 600;
+
+    text-align: center;
+    cursor : pointer;
+}
+.scene .controls-container .like-button {
+    background-color : var(--primary-color);
+    color : var(--on-primary-color);
+}
+.scene .controls-container .dislike-button {
+    background-color : var(--gray-300);
+    color : black;
+}
