@@ -19,20 +19,73 @@ export class scene implements OnInit {
   itemId: number = 0;
 
   slides: any[] = [];
-  dislikeClassList: string[] = [];
-  likeClassList: string[] = [];
+  dislikeClassList: string = '';
+  likeClassList: string = '';
   constructor(private router: Router) {}
   KRWon = new Intl.NumberFormat('ko-KR', {
     style: 'currency',
     currency: 'KRW',
   });
-  like = (proId: number, usrId: number) => {
+
+  // wonjin lee - start
+  curSlideIdx: number = 0;
+  curSlideLikeCount: number = 0;
+  curSlideDislikeCount: number = 0;
+  curSlideIsLike: boolean = false;
+  curSlideIsDislike: boolean = false;
+  isLoading: boolean = false;
+  updateCurCount = async () => {
+    this.isLoading = true;
+
+    try {
+      console.log('---');
+      const { data } = await this.api.getProduct(this.curSlideIdx, 1);
+      console.log(data);
+      this.curSlideLikeCount = data.like_count;
+      this.curSlideDislikeCount = data.dislike_count;
+      this.curSlideIsLike = data.is_like;
+      this.curSlideIsDislike = data.is_dislike;
+      console.log(this.curSlideLikeCount, this.curSlideDislikeCount);
+    } finally {
+      this.isLoading = false;
+    }
+  };
+  // wonjin lee - end
+
+  // like = (proId: number, usrId: number, slide: any) => {
+  like = async (proId: number, usrId: number, slide: any) => {
     this.api.like(proId, usrId);
+    slide.is_like = true;
+    slide.is_dislike = false;
+
+    // wonjin lee - start
+    await this.updateCurCount();
+    // wonjin lee - end
   };
 
-  dislike = (proId: number, usrId: number) => {
+  dislike = async (proId: number, usrId: number, slide: any) => {
     this.api.dislike(proId, usrId);
+    slide.is_like = false;
+    slide.is_dislike = true;
+
+    // wonjin lee - start
+    await this.updateCurCount();
+    // wonjin lee - end
   };
+
+  isLike(slide: any) {
+    return slide.is_like ? 'selected' : '';
+  }
+  isDisLike(slide: any) {
+    return slide.is_dislike ? 'selected' : '';
+  }
+  // wonjin lee - start
+  showBackdrop(isLoading: boolean) {
+    console.log(isLoading);
+    return isLoading ? 'show-backdrop' : 'hide-backdrop';
+  }
+  // wonjin lee - end
+
   ngOnInit(): void {}
   ngAfterViewInit() {
     this.api.getProduct(this.itemId, 1).then((res: any) => {
@@ -117,6 +170,7 @@ export class scene implements OnInit {
               },
               slideChangeTransitionStart: (swiper) => {
                 swiper.updateSlides();
+
                 if (swiper.swipeDirection == 'next') {
                   this.api
                     .getProduct(this.itemId, 1)
@@ -133,6 +187,11 @@ export class scene implements OnInit {
               },
               slideChangeTransitionEnd: (swiper) => {
                 this.swiper?.update();
+                // wonjin lee - start
+                this.curSlideIdx = swiper.activeIndex;
+                console.log(this.curSlideIdx);
+                this.updateCurCount();
+                // wonjin lee - end
               },
             },
           });

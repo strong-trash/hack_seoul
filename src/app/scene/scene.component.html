@@ -15,19 +15,28 @@
               <div class="product-review-container">
                 <p class="review-text">{{ slide.summary }}</p>
               </div>
-              <div class="controls-container" (click)="like(slide.id, 1)">
+              <div class="controls-container">
                 <div
                   class="like-button action-button"
-                  [ngClass]="likeClassList"
+                  (click)="like(slide.id, 1, slide)"
+                  [ngClass]="isLike(slide)"
                 >
-                  <span>Like</span>
+                  <div class="like-icon icon">
+                    <img src="icons/thumb_up.png" alt="like icon" />
+                  </div>
+                  <!-- <span class="like-cnt">{{ slide.like_count }}</span> -->
+                  <span class="like-cnt">{{ curSlideLikeCount }}</span>
                 </div>
                 <div
                   class="dislike-button action-button"
-                  [ngClass]="dislikeClassList"
-                  (click)="dislike(slide.id, 1)"
+                  (click)="dislike(slide.id, 1, slide)"
+                  [ngClass]="isDisLike(slide)"
                 >
-                  <span>Dislike</span>
+                  <div class="dislike-icon icon">
+                    <img src="icons/thumb_down.png" alt="dislike icon" />
+                  </div>
+                  <!-- <span class="dislike-cnt">{{ slide.dislike_count }}</span> -->
+                  <span class="dislike-cnt">{{ curSlideDislikeCount }}</span>
                 </div>
               </div>
             </div>
@@ -36,6 +45,22 @@
       </div>
     </div>
   </div>
+
+  <!-- wonjin lee - start -->
+  <!-- loading backdrop -->
+  <!-- <div
+    class="loading-backdrop"
+    style="
+      width: 100vh;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.6);
+      position: fixed;
+      top: 0;
+      left: 0;
+    "
+    [ngClass]="showBackdrop(isLoading)"
+  ></div> -->
+  <!-- wonjin lee - end -->
 </div>
 
 <router-outlet />
