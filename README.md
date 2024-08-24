@@ -91,44 +91,47 @@ coverage report -m
 ## Test Coverage
 
 ```
-Name                        Stmts   Miss  Cover   Missing
----------------------------------------------------------
-app.py                         18      0   100%
-const.py                        4      0   100%
-db.py                          14      0   100%
-depends.py                     16      0   100%
-dto/__init__.py                 0      0   100%
-dto/cart.py                    19      0   100%
-dto/like.py                     4      0   100%
-dto/product.py                 18      0   100%
-exception.py                   14      1    93%   30
-orm/__init__.py                 5      0   100%
-orm/base.py                     8      0   100%
-orm/cart.py                    10      0   100%
-orm/like.py                    10      0   100%
-orm/product.py                 12      0   100%
-orm/review.py                   8      0   100%
-orm/user.py                     9      0   100%
-presentation/__init__.py        0      0   100%
-presentation/cart.py           23      0   100%
-presentation/like.py           15      0   100%
-presentation/ping.py            5      0   100%
-presentation/product.py        19      0   100%
-repository/base.py             16      0   100%
-repository/cart.py              7      0   100%
-repository/like.py              8      0   100%
-repository/product.py           8      1    88%   16
-service/__init__.py             0      0   100%
-service/cart.py                27      0   100%
-service/like.py                21      0   100%
-service/product.py             24      0   100%
-settings.py                    16      1    94%   19
-tests/conftest.py              49      0   100%
-tests/e2e/test_cart.py         41      0   100%
-tests/e2e/test_like.py         23      0   100%
-tests/e2e/test_ping.py          8      0   100%
-tests/e2e/test_product.py      36      0   100%
-tests/helper.py                12      0   100%
----------------------------------------------------------
-TOTAL                         527      3    99%
+❯ coverage report -m
+Name                           Stmts   Miss  Cover   Missing
+------------------------------------------------------------
+app.py                            18      0   100%
+const.py                           4      0   100%
+db.py                             14      0   100%
+depends.py                        16      0   100%
+dto/__init__.py                    0      0   100%
+dto/cart.py                       19      0   100%
+dto/like.py                        4      0   100%
+dto/product.py                    18      0   100%
+exception.py                      14      0   100%
+orm/__init__.py                    5      0   100%
+orm/base.py                        8      0   100%
+orm/cart.py                       10      0   100%
+orm/like.py                       10      0   100%
+orm/product.py                    12      0   100%
+orm/review.py                      8      0   100%
+orm/user.py                        9      0   100%
+presentation/__init__.py           0      0   100%
+presentation/cart.py              23      0   100%
+presentation/like.py              15      0   100%
+presentation/ping.py               5      0   100%
+presentation/product.py           19      0   100%
+repository/base.py                16      0   100%
+repository/cart.py                 7      0   100%
+repository/like.py                 8      0   100%
+repository/product.py              6      0   100%
+service/__init__.py                0      0   100%
+service/cart.py                   27      0   100%
+service/like.py                   21      0   100%
+service/product.py                24      0   100%
+settings.py                       16      0   100%
+tests/conftest.py                 49      0   100%
+tests/e2e/test_cart.py            41      0   100%
+tests/e2e/test_like.py            23      0   100%
+tests/e2e/test_ping.py             8      0   100%
+tests/e2e/test_product.py         36      0   100%
+tests/helper.py                   12      0   100%
+tests/unit/test_exception.py       9      0   100%
+tests/unit/test_settings.py        6      0   100%
+------------------------------------------------------------
+TOTAL                            540      0   100%
 ```
