@@ -1,15 +1,15 @@
 from typing import Annotated
-from fastapi import FastAPI, Depends, HTTPException
-from fastapi import status
+
+from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm.session import Session
 
 from const import LikeStatus
 from depends import get_session
-
 from dto.cart import CartDto, CartResponseDto, CartResponseModel, CartUpdateDto
 from dto.like import LikeDto
 from dto.product import ProductDto
+from exception import BadRequestException, BaseException, NotFoundException, handle_exception
 from orm.cart import Cart
 from orm.like import Like
 from orm.product import Product
@@ -26,6 +26,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.add_exception_handler(BaseException, handle_exception)
 
 
 @app.get("/ping", status_code=status.HTTP_200_OK)
@@ -146,17 +148,11 @@ async def update_shoppingcart(
     session: Annotated[Session, Depends(get_session)]
 ) -> CartUpdateDto:
     if cart.count <= 0:
-        return HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Invalid count"
-        )
+        raise BadRequestException
     repository = CartRepository(session)
     obj = repository.get_by_id(cart_id)
     if obj is None:
-        return HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Cart not found."
-        )
+        raise NotFoundException
     obj.count = cart.count
 
     return cart
@@ -170,8 +166,5 @@ async def delete_shoppingcart(
     repository = CartRepository(session)
     obj = repository.get_by_id(cart_id)
     if obj is None:
-        return HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Cart not found."
-        )
+        raise NotFoundException
     repository.delete(obj)
