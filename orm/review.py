@@ -1,6 +1,7 @@
-from orm.base import Base
 from sqlalchemy import ForeignKey, Text
-from sqlalchemy.orm import mapped_column, Mapped, relationship
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from orm.base import Base
 
 
 class Review(Base):

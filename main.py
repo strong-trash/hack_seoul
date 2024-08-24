@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi import Depends, FastAPI, status
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm.session import Session
 
@@ -9,7 +9,8 @@ from depends import get_session
 from dto.cart import CartDto, CartResponseDto, CartResponseModel, CartUpdateDto
 from dto.like import LikeDto
 from dto.product import ProductDto
-from exception import BadRequestException, BaseException, NotFoundException, handle_exception
+from exception import (BadRequestException, BaseException, NotFoundException,
+                       handle_exception)
 from orm.cart import Cart
 from orm.like import Like
 from orm.product import Product

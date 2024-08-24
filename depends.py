@@ -1,5 +1,7 @@
 from typing import Annotated
+
 from fastapi import Depends
+
 from db import Database
 from settings import Settings
 

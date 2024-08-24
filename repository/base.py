@@ -1,6 +1,7 @@
-from typing import Generic, TypeVar
-from sqlalchemy.orm.session import Session
 from abc import ABCMeta
+from typing import Generic, TypeVar
+
+from sqlalchemy.orm.session import Session
 
 T = TypeVar('T')
 

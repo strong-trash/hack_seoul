@@ -1,7 +1,8 @@
-from sqlalchemy import create_engine, URL
-from settings import Settings
+from sqlalchemy import URL, create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
+
+from settings import Settings
 
 
 class Database:

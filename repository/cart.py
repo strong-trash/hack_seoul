@@ -1,7 +1,7 @@
-from orm.cart import Cart
-from orm.product import Product
-from repository.base import Repository
 from sqlalchemy.orm import joinedload
+
+from orm.cart import Cart
+from repository.base import Repository
 
 
 class CartRepository(Repository):
