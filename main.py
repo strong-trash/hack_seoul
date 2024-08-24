@@ -1,5 +1,5 @@
 from typing import Annotated
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException
 from fastapi import status
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm.session import Session
@@ -7,9 +7,15 @@ from sqlalchemy.orm.session import Session
 from const import LikeStatus
 from depends import get_session
 
+from dto.cart import CartDto, CartUpdateDto
 from dto.like import LikeDto
+from dto.product import ProductDto
+from orm.cart import Cart
 from orm.like import Like
+from orm.product import Product
+from repository.cart import CartRepository
 from repository.like import LikeRepository
+from repository.product import ProductRepository
 
 app = FastAPI()
 
@@ -71,3 +77,72 @@ async def dislike(
         obj.is_like = LikeStatus.DISLIKE
 
     return like_data
+
+
+@app.post("/product", status_code=status.HTTP_201_CREATED)
+async def add_product(
+    product: ProductDto,
+    session: Annotated[Session, Depends(get_session)]
+):
+    repository = ProductRepository(session)
+    obj = Product(
+        name=product.name,
+        image_path=product.image_path,
+        price=product.price,
+        summary=product.summary
+    )
+    repository.add(obj)
+    return product
+
+
+@app.post("/cart", status_code=status.HTTP_201_CREATED)
+async def add_shoppingcart(
+    cart: CartDto,
+    session: Annotated[Session, Depends(get_session)]
+):
+    repository = CartRepository(session)
+    obj = Cart(
+        user_id=cart.user_id,
+        product_id=cart.product_id,
+        count=1
+    )
+    repository.add(obj)
+    return cart
+
+
+@app.put("/cart/{cart_id}", status_code=status.HTTP_202_ACCEPTED)
+async def update_shoppingcart(
+    cart_id: int,
+    cart: CartUpdateDto,
+    session: Annotated[Session, Depends(get_session)]
+):
+    if cart.count <= 0:
+        return HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid count"
+        )
+    repository = CartRepository(session)
+    obj = repository.get_by_id(cart_id)
+    if obj is None:
+        return HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Cart not found."
+        )
+    obj.count = cart.count
+
+    return cart
+
+
+@app.delete("/cart/{cart_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_shoppingcart(
+    cart_id: int,
+    session: Annotated[Session, Depends(get_session)]
+) -> None:
+    repository = CartRepository(session)
+    obj = repository.get_by_id(cart_id)
+    if obj is None:
+        return HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Cart not found."
+        )
+    repository.delete(obj)

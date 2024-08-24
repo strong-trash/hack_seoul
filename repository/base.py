@@ -28,3 +28,6 @@ class Repository(Generic[T], metaclass=ABCMeta):
 
     def add(self, obj: T):
         self.session.add(obj)
+
+    def delete(self, obj: T):
+        self.session.delete(obj)

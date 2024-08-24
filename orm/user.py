@@ -12,3 +12,6 @@ class User(Base):
     like_history: Mapped[list["Like"]] = relationship(
         back_populates="user", cascade="all, delete-orphan"
     )
+    carts: Mapped[list["Cart"]] = relationship(
+        back_populates="user", cascade="all, delete-orphan"
+    )
