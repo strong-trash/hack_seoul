@@ -25,7 +25,7 @@ class CartResponseDto(BaseModel):
         return CartResponseDto(
             id=cart.id,
             name=product.name,
-            image_path=product.name,
+            image_path=product.image_path,
             price=product.price,
             count=cart.count
         )
