@@ -65,7 +65,6 @@
 
 .product-header {
     display: flex;
-    height : 28px;
     font-size: 1.1rem;
     margin-bottom: 15px;
 }
@@ -84,6 +83,7 @@
 
 .product-body {
     display: flex;
+    
 }
 
 .product-body img {
@@ -98,6 +98,7 @@
     display: flex;
     flex-direction: column;
     padding-top : 8px;
+    flex-wrap : wrap;
 }
 
 .product-info {
@@ -109,13 +110,23 @@
     margin-bottom: 8px;
 }
 
+.delivery-time-container {
+    display : flex;
+    flex-wrap : wrap;
+    
+}
+
 .delivery {
     color: #0071e3;
+    margin-right : 8px;
     margin-bottom: 8px;
+    word-break: keep-all;
+    
 }
 
 .time {
     color: #333;
+    margin-bottom : 8px;
 }
 
 .price-info {
@@ -187,15 +198,20 @@
     cursor : pointer;
 }
 
-.move-to-wishlist {
+.delete-button {
     height : 40px;
-    background-color: #f7f7f7;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 8px 12px;
-    cursor: pointer;
-    color: #0071e3;
-    font-weight: bold;
+    width : 40px;
+    padding : 8px;
+    border-radius : 50%;
+    transition : all 0.3s;
+    cursor : pointer;
+}
+.delete-button:hover {
+    background-color: var(--gray-500);
+}
+.delete-button > img {
+    height: 100%;
+    width: auto;
 }
 
 /* ------------------------------------------------------------------------- */

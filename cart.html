@@ -19,6 +19,7 @@
 
     <!-- cart body -->
     <div calss="cart-body">
+
         <!-- product 1 -->
         <div class="cart-product">
             <div class="product-header">
@@ -33,7 +34,10 @@
                 <div class="product-info">
                     <div class="body-right-box">
                         <p class="brand">(주)동원디어푸드</p>
-                        <p class="delivery">내일(일) 도착 보장 <span class="time">01:00:49 내 주문 시</span></p>
+                        <div class="delivery-time-container">
+                            <p class="delivery">내일(일) 도착 보장</p>
+                            <span class="time">01:00:49 내 주문 시</span>
+                        </div>
                         <div class="price-info">
                             <span class="discounted-price">13,300원</span>
                             <span class="original-price">999,990원</span>
@@ -45,45 +49,15 @@
                                 <input type="input" value="1">
                                 <div class="cnt-button increase-button"> ┼ </div>
                             </div>
-                            <button class="move-to-wishlist">보관함으로 옮기기</button>
+                            <div class="delete-button">
+                                <img src="./icons/delete.png" alt="delete">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    
-        <!-- product 2 -->
-        <div class="cart-product">
-            <div class="product-header">
-                <label class="checkbox-container"> 
-                    <input type="checkbox" checked="checked">
-                    <span class="checkmark"></span>
-                </label> 
-                <span class="product-name">캐럿 남녀공용 기능성 퀵드라이 쿨링 라운드넥 반팔 티셔츠, 3XL (115), 네이비</span>
-            </div>
-            <div class="product-body">
-                <img src="https://via.placeholder.com/100x100" alt="Product Image">
-                <div class="body-right-box">
-                    <div class="product-info">
-                        <p class="brand">와우할인</p>
-                        <p class="delivery">내일(일) 도착 보장 <span class="time">01:00:49 내 주문 시</span></p>
-                        <div class="price-info">
-                            <span class="discounted-price">5,190원</span>
-                            <span class="original-price">999,990원</span>
-                            <span class="shipping">로켓배송</span>
-                        </div>
-                    </div>
-                    <div class="product-footer">
-                        <div class="cnt-controls">
-                            <div class="cnt-button decrease-button"> ─ </div>
-                            <input type="input" value="1">
-                            <div class="cnt-button increase-button"> ┼ </div>
-                        </div>
-                        <button class="move-to-wishlist">보관함으로 옮기기</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+
     </div>
     
 </body>
