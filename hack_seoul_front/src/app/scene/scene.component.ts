@@ -55,22 +55,22 @@ export class scene implements OnInit {
   // like = (proId: number, usrId: number, slide: any) => {
   like = async (proId: number, usrId: number, slide: any) => {
     this.api.like(proId, usrId);
+    if (this.isLike(slide) != 'selected') {
+      slide.like_count++;
+      if (this.isDisLike(slide) == 'selected') slide.dislike_count--;
+    }
     slide.is_like = true;
     slide.is_dislike = false;
-
-    // wonjin lee - start
-    await this.updateCurCount();
-    // wonjin lee - end
   };
 
   dislike = async (proId: number, usrId: number, slide: any) => {
     this.api.dislike(proId, usrId);
+    if (this.isDisLike(slide) != 'selected') {
+      if (this.isLike(slide) == 'selected') slide.like_count--;
+      slide.dislike_count++;
+    }
     slide.is_like = false;
     slide.is_dislike = true;
-
-    // wonjin lee - start
-    await this.updateCurCount();
-    // wonjin lee - end
   };
 
   isLike(slide: any) {
@@ -189,7 +189,6 @@ export class scene implements OnInit {
                 this.swiper?.update();
                 // wonjin lee - start
                 this.curSlideIdx = swiper.activeIndex;
-                console.log(this.curSlideIdx);
                 this.updateCurCount();
                 // wonjin lee - end
               },

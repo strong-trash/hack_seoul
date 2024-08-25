@@ -24,8 +24,7 @@
                   <div class="like-icon icon">
                     <img src="icons/thumb_up.png" alt="like icon" />
                   </div>
-                  <!-- <span class="like-cnt">{{ slide.like_count }}</span> -->
-                  <span class="like-cnt">{{ curSlideLikeCount }}</span>
+                  <span class="like-cnt">{{ slide.like_count }} </span>
                 </div>
                 <div
                   class="dislike-button action-button"
@@ -35,8 +34,7 @@
                   <div class="dislike-icon icon">
                     <img src="icons/thumb_down.png" alt="dislike icon" />
                   </div>
-                  <!-- <span class="dislike-cnt">{{ slide.dislike_count }}</span> -->
-                  <span class="dislike-cnt">{{ curSlideDislikeCount }}</span>
+                  <span class="dislike-cnt">{{ slide.dislike_count }} </span>
                 </div>
               </div>
             </div>
@@ -45,22 +43,6 @@
       </div>
     </div>
   </div>
-
-  <!-- wonjin lee - start -->
-  <!-- loading backdrop -->
-  <!-- <div
-    class="loading-backdrop"
-    style="
-      width: 100vh;
-      height: 100vh;
-      background-color: rgba(0, 0, 0, 0.6);
-      position: fixed;
-      top: 0;
-      left: 0;
-    "
-    [ngClass]="showBackdrop(isLoading)"
-  ></div> -->
-  <!-- wonjin lee - end -->
 </div>
 
 <router-outlet />

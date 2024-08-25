@@ -6,7 +6,7 @@ With simple swipe, users can access various products easily and funny
 
 ## How to build
 
-ng build
+ng build / npm run build
 
 ## How to Run
 
