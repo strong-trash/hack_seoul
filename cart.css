@@ -1,0 +1,287 @@
+@import url('./globalStyles/global.css');
+
+
+/* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- */
+/* Cart Header */
+
+.cart-header {
+    height : 64px;
+    padding : 8px 16px;
+    
+    background-color: white;
+    text-align: center;
+
+    display : flex;
+    align-items: center;
+
+    border-bottom : 2px solid var(--gray-700)
+}
+
+.back-button-container {
+    height : 100%;
+    padding : 4px;
+    border-radius : 50%;
+    transition: all 0.3s;
+}
+
+.back-button-container > img {
+    height : 100%;
+    width : auto;
+}
+
+.back-button-container:hover{
+    cursor : pointer;
+    background-color: var(--gray-300);
+}
+
+.cart-header .logo-text-container > h1 {
+    font-size: 1.5rem;
+    margin-left : 8px;
+    font-weight : 500;
+}
+
+/* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- */
+/* Cart Body */
+
+
+/* ------------------------------------------------------------------------- */
+/* 헤더 (체크박스 + 상품명) */
+
+
+.cart-product {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+/* ------------------------------------------------------------------------- */
+/* 헤더 (체크박스 + 상품명) */
+
+.product-header {
+    display: flex;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+.product-header input {
+    margin-right: 10px;
+}
+
+.product-name {
+    padding-top : 4px;
+}
+        /* product-header안의 체크박스 스타일은 너무 길어서 맨밑에 따로 빼놨읍니다 */
+
+/* ------------------------------------------------------------------------- */
+/* 바디 ( 사진 + (기타 정보) ) */
+
+.product-body {
+    display: flex;
+    
+}
+
+.product-body img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-right: 15px;
+}
+
+.body-right-box {
+    display: flex;
+    flex-direction: column;
+    padding-top : 8px;
+    flex-wrap : wrap;
+}
+
+.product-info {
+    flex-grow: 1;
+}
+
+.brand {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.delivery-time-container {
+    display : flex;
+    flex-wrap : wrap;
+    
+}
+
+.delivery {
+    color: #0071e3;
+    margin-right : 8px;
+    margin-bottom: 8px;
+    word-break: keep-all;
+    
+}
+
+.time {
+    color: #333;
+    margin-bottom : 8px;
+}
+
+.price-info {
+    display: flex;
+    align-items: center;
+}
+
+.discounted-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #e20000;
+    margin-right: 10px;
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: #777;
+    margin-right: 10px;
+}
+
+.shipping {
+    background-color: #0071e3;
+    color: white;
+    padding: 2px 5px;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.product-footer {
+    display: flex;
+    gap : 12px;
+    align-items: center;
+    margin-top: 10px;
+}
+
+
+
+.product-footer .cnt-controls {
+    display: flex;
+    height : 40px;
+}
+
+.cnt-controls input {
+    /* width: 24px; */
+    text-align: center;
+    border-top: 1px solid var(--gray-300);
+    border-bottom: 1px solid var(--gray-300);
+    border-left : none;
+    border-right : none;
+    padding: 5px;
+    width : 64px;
+    height : 40px;
+    font-size: 1.1rem;
+}
+
+.cnt-controls .cnt-button {
+    height: 40px;
+    width : 40px;
+    padding : 8px;
+    border : 1px solid var(--gray-300);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    transition : all 0.3s;
+}
+
+.cnt-button:hover {
+    background-color: var(--gray-500);
+    cursor : pointer;
+}
+
+.delete-button {
+    height : 40px;
+    width : 40px;
+    padding : 8px;
+    border-radius : 50%;
+    transition : all 0.3s;
+    cursor : pointer;
+}
+.delete-button:hover {
+    background-color: var(--gray-500);
+}
+.delete-button > img {
+    height: 100%;
+    width: auto;
+}
+
+/* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- */
+/* 예쁜 체크박스 */
+/* ------------------------------------------------------------------------- */
+
+/*  */
+.checkbox-container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 24px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .checkbox-container:hover input ~ .checkmark {
+    background-color: #ccc;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .checkbox-container input:checked ~ .checkmark {
+    background-color: #2196F3;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .checkbox-container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }

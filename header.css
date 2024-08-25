@@ -1,0 +1,33 @@
+@import url('./globalStyles/global.css');
+
+.header {
+    height : 64px;
+    padding : 8px 16px;
+    
+    background-color: white;
+    text-align: center;
+
+    display : flex;
+    align-items: center;
+
+    border-bottom : 2px solid var(--gray-700)
+}
+
+.header .logo-img-container {
+    height : 100%;
+}
+
+.header .logo-img-container > img {
+    height : 100%;
+    width : auto;
+}
+
+.header .logo-text-container > span {
+    font-family: "Edu AU VIC WA NT Hand"; 
+    font-size: 1.5rem;
+    margin-left : 8px;
+}
+
+.header .right-menu-container {
+
+}
